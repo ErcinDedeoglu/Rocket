@@ -10,7 +10,7 @@ namespace Rocket
             Rocket.DTO.ConfigurationDto.Root configuration = null;
             
             XmlSerializer serializer = new XmlSerializer(typeof(Rocket.DTO.ConfigurationDto.Root));
-            StreamReader reader = new StreamReader(PathHelper.CurrentPath() + "//Configuration.xml");
+            StreamReader reader = new StreamReader(PathHelper.CurrentPath() + "//_Configuration.xml");
             configuration = (Rocket.DTO.ConfigurationDto.Root)serializer.Deserialize(reader);
             reader.Close();
 
