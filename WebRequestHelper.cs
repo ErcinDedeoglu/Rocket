@@ -8,10 +8,31 @@ namespace Rocket
 {
     public class WebRequestHelper
     {
+        public static bool TryAddCookie(WebRequest webRequest, Cookie cookie)
+        {
+            HttpWebRequest httpRequest = webRequest as HttpWebRequest;
+            if (httpRequest == null)
+            {
+                return false;
+            }
+
+            if (httpRequest.CookieContainer == null)
+            {
+                httpRequest.CookieContainer = new CookieContainer();
+            }
+
+            httpRequest.CookieContainer.Add(cookie);
+            return true;
+        }
+
         public static string ContentFromURL(string url, string referrer, string postData = null, string method = "POST")
         {
+            Uri target = new Uri(url);
+
             string str = (string)null;
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(target);
+            TryAddCookie(httpWebRequest, new Cookie("someName", "someValue") { Domain = target.Host });
+
             byte[] buffer = new byte[0];
             if (postData != null)
                 buffer = Encoding.ASCII.GetBytes(postData);
