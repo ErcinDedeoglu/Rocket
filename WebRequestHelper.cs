@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 
@@ -29,5 +31,7 @@ namespace Rocket
                 str = new StreamReader(responseStream).ReadToEnd();
             return str;
         }
+        
+
     }
 }
